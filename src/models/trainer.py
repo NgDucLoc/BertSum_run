@@ -247,6 +247,7 @@ class Trainer(object):
 
                         gold = []
                         pred = []
+                        pred_label = []
 
                         if (cal_lead):
                             selected_ids = [list(range(batch.clss.size(1)))] * batch.batch_size
@@ -265,8 +266,19 @@ class Trainer(object):
                             sent_scores = sent_scores.cpu().data.numpy()
                             selected_ids = np.argsort(-sent_scores, 1)
 
+
+
                         # selected_ids = np.sort(selected_ids,1)
                         for i, idx in enumerate(selected_ids):
+                            _pre_label =[]
+                            # creat a label array {0,1}
+                            for j in range(len(batch.src_str[i])):
+                                if j in selected_ids[i][0:3]:
+                                    _pre_label.append(1)
+                                else:
+                                    _pre_label.append(0)
+
+
                             _pred = []
                             if(len(batch.src_str[i])==0):
                                 continue
@@ -289,8 +301,9 @@ class Trainer(object):
 
                             pred.append(_pred)
                             gold.append(batch.tgt_str[i])
-                        print("pred:" ,pred)
-                        print("gold: ",gold)
+                            pred.append(_pre_label)
+
+                        print(pred_label)
                         for i in range(len(gold)):
                             save_gold.write(gold[i].strip()+'\n')
                         for i in range(len(pred)):
