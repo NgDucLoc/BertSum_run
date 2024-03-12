@@ -301,7 +301,7 @@ class Trainer(object):
 
                             pred.append(_pred)
                             gold.append(batch.tgt_str[i])
-                            pred.append(_pre_label)
+                            pred_label.append(_pre_label)
 
                         print(pred_label)
                         for i in range(len(gold)):
