@@ -303,7 +303,8 @@ class Trainer(object):
                             gold.append(batch.tgt_str[i])
                             pred_label.append(_pre_label)
 
-                        print(pred_label)
+                        print("pre_label ", pred_label)
+                        print("label: ", labels)
                         for i in range(len(gold)):
                             save_gold.write(gold[i].strip()+'\n')
                         for i in range(len(pred)):
