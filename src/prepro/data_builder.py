@@ -257,7 +257,6 @@ def _format_to_bert(params):
     jobs = json.load(open(json_file))
     datasets = []
     for d in jobs:
-        print(d)
         source, tgt = d['src'], d['tgt']
         if (args.oracle_mode == 'greedy'):
             oracle_ids = greedy_selection(source, tgt, 3)
