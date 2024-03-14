@@ -149,7 +149,7 @@ class BertData():
         self.cls_vid = self.tokenizer.vocab['[CLS]']
         self.pad_vid = self.tokenizer.vocab['[PAD]']
 
-    def preprocess(self, src, tgt, oracle_ids):
+    def preprocess(self, src, tgt, oracle_ids, pad = True):
 
         if (len(src) == 0):
             return None
@@ -159,18 +159,18 @@ class BertData():
         labels = [0] * len(src)
         for l in oracle_ids:
             labels[l] = 1
+        if pad == True:
+            idxs = [i for i, s in enumerate(src) if (len(s) >= self.args.min_src_ntokens)]
 
-        idxs = [i for i, s in enumerate(src) if (len(s) >= self.args.min_src_ntokens)]
+            src = [src[i][:self.args.max_src_ntokens] for i in idxs]
+            labels = [labels[i] for i in idxs]
+            src = src[:self.args.max_nsents]
+            labels = labels[:self.args.max_nsents]
 
-        src = [src[i][:self.args.max_src_ntokens] for i in idxs]
-        labels = [labels[i] for i in idxs]
-        src = src[:self.args.max_nsents]
-        labels = labels[:self.args.max_nsents]
-
-        if (len(src) < self.args.min_nsents):
-            return None
-        if (len(labels) == 0):
-            return None
+            if (len(src) < self.args.min_nsents):
+                return None
+            if (len(labels) == 0):
+                return None
 
         src_txt = [' '.join(sent) for sent in src]
         # text = [' '.join(ex['src_txt'][i].split()[:self.args.max_src_ntokens]) for i in idxs]
@@ -271,7 +271,7 @@ def _format_to_bert(params):
         if (b_data is None):
             continue
         indexed_tokens, labels, segments_ids, cls_ids, src_txt, tgt_txt = b_data
-        labels = d['label']
+        # labels = d['label']
         b_data_dict = {"src": indexed_tokens, "labels": labels, "segs": segments_ids, 'clss': cls_ids,
                        'src_txt': src_txt, "tgt_txt": tgt_txt}
         datasets.append(b_data_dict)
