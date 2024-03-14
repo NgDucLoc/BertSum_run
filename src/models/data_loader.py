@@ -173,8 +173,8 @@ class DataIterator(object):
 
     def preprocess(self, ex, is_test):
         src = ex['src']
-        if('label' in ex):
-            labels = ex['label']
+        if('labels' in ex):
+            labels = ex['labels']
         else:
             labels = ex['src_sent_labels']
 

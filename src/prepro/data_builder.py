@@ -262,6 +262,11 @@ def _format_to_bert(params):
             oracle_ids = greedy_selection(source, tgt, 3)
         elif (args.oracle_mode == 'combination'):
             oracle_ids = combination_selection(source, tgt, 3)
+        elif (args.oracle_mode == 'None'):
+            oracle_ids = []
+            for index, i in enumerate(d['label']):
+                if i == 1:
+                    oracle_ids.append(index)
         b_data = bert.preprocess(source, tgt, oracle_ids)
         if (b_data is None):
             continue
