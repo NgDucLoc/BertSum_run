@@ -316,7 +316,6 @@ class Trainer(object):
                 labels = labels.tolist()
                 labels = sum(labels, [])
 
-                pred_label = pred_label.tolist()
                 pred_label = sum(pred_label, [])
                 print(classification_report(labels, pred_label))
         return stats
