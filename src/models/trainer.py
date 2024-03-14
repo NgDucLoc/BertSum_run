@@ -11,6 +11,8 @@ from models.stats import Statistics
 from others.logging import logger
 from others.utils import test_rouge, rouge_results_to_str
 
+from sklearn.metrics import classification_report
+
 
 def _tally_parameters(model):
     n_params = sum([p.nelement() for p in model.parameters()])
@@ -311,7 +313,9 @@ class Trainer(object):
         #     rouges = test_rouge(self.args.temp_dir, can_path, gold_path)
         #     logger.info('Rouges at step %d \n%s' % (step, rouge_results_to_str(rouges)))
         # self._report_step(0, step, valid_stats=stats)
-
+                labels = sum(labels, [])
+                pred_label = sum(pred_label, [])
+                print(classification_report(labels, pred_label))
         return stats
 
 
