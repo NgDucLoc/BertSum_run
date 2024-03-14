@@ -262,7 +262,7 @@ def _format_to_bert(params):
             oracle_ids = greedy_selection(source, tgt, 3)
         elif (args.oracle_mode == 'combination'):
             oracle_ids = combination_selection(source, tgt, 3)
-        elif (args.oracle_mode == 'None'):
+        elif (args.oracle_mode == 'none'):
             oracle_ids = []
             for index, i in enumerate(d['label']):
                 if i == 1:
