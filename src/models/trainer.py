@@ -303,16 +303,14 @@ class Trainer(object):
                             gold.append(batch.tgt_str[i])
                             pred_label.append(_pre_label)
 
-                        print("pre_label ", pred_label)
-                        print("label: ", labels)
                         for i in range(len(gold)):
                             save_gold.write(gold[i].strip()+'\n')
                         for i in range(len(pred)):
                             save_pred.write(pred[i].strip()+'\n')
-        if(step!=-1 and self.args.report_rouge):
-            rouges = test_rouge(self.args.temp_dir, can_path, gold_path)
-            logger.info('Rouges at step %d \n%s' % (step, rouge_results_to_str(rouges)))
-        self._report_step(0, step, valid_stats=stats)
+        # if(step!=-1 and self.args.report_rouge):
+        #     rouges = test_rouge(self.args.temp_dir, can_path, gold_path)
+        #     logger.info('Rouges at step %d \n%s' % (step, rouge_results_to_str(rouges)))
+        # self._report_step(0, step, valid_stats=stats)
 
         return stats
 
