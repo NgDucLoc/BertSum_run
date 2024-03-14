@@ -274,7 +274,7 @@ class Trainer(object):
                         for i, idx in enumerate(selected_ids):
                             _pre_label =[]
                             # creat a label array {0,1}
-                            for j in range(len(batch.src_str[i])):
+                            for j in range(len(labels)):
                                 if j in selected_ids[i][0:3]:
                                     _pre_label.append(1)
                                 else:
