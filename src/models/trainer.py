@@ -253,7 +253,7 @@ class Trainer(object):
 
                         print(len_src)
 
-                        all_labels = all_labels + sum(labels_base.tolist(), [])
+                        all_labels = all_labels + sum(labels_base, [])
                         gold = []
                         pred = []
 
