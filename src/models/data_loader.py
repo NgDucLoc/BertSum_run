@@ -50,7 +50,7 @@ class Batch(object):
                 tgt_str = [x[-1] for x in data]
                 setattr(self, 'tgt_str', tgt_str)
                 labels_base = [x[-3] for x in data]
-                setattr(self, 'labels_base', lables_base)
+                setattr(self, 'labels_base', labels_base)
 
     def __len__(self):
         return self.batch_size
