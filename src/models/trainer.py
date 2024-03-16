@@ -234,7 +234,7 @@ class Trainer(object):
         stats = Statistics()
 
         all_labels=[]
-        all_pre_labels=[]
+        all_pred_labels=[]
 
         can_path = '%s_step%d.candidate'%(self.args.result_path,step)
         gold_path = '%s_step%d.gold' % (self.args.result_path, step)
