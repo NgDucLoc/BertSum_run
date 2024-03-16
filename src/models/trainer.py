@@ -249,7 +249,7 @@ class Trainer(object):
                         mask = batch.mask
                         mask_cls = batch.mask_cls
 
-                        all_labels = all_labels + labels.to_list()
+                        all_labels = all_labels + labels.tolist()
                         gold = []
                         pred = []
 
