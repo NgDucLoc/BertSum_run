@@ -248,6 +248,9 @@ class Trainer(object):
                         clss = batch.clss
                         mask = batch.mask
                         mask_cls = batch.mask_cls
+                        len_src = batch.len_src
+
+                        print(len_src)
 
                         all_labels = all_labels + sum(labels.tolist(), [])
                         gold = []

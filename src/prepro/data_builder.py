@@ -271,9 +271,12 @@ def _format_to_bert(params):
         if (b_data is None):
             continue
         indexed_tokens, labels, segments_ids, cls_ids, src_txt, tgt_txt = b_data
-        # labels = d['label']
+        len_src= []
+        for i in labels:
+            len_src.append(len(i))
+
         b_data_dict = {"src": indexed_tokens, "labels": labels, "segs": segments_ids, 'clss': cls_ids,
-                       'src_txt': src_txt, "tgt_txt": tgt_txt}
+                       'src_txt': src_txt, "tgt_txt": tgt_txt, "len_src": len_src}
         datasets.append(b_data_dict)
     print(len(datasets))
     logger.info('Saving to %s' % save_file)

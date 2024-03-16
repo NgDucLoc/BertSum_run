@@ -178,6 +178,8 @@ class DataIterator(object):
         else:
             labels = ex['src_sent_labels']
 
+        len_src = ex['len_src']
+
         segs = ex['segs']
         if(not self.args.use_interval):
             segs=[0]*len(segs)
@@ -186,7 +188,7 @@ class DataIterator(object):
         tgt_txt = ex['tgt_txt']
 
         if(is_test):
-            return src,labels,segs, clss, src_txt, tgt_txt
+            return src,labels,segs, clss, src_txt, tgt_txt, len_src
         else:
             return src,labels,segs, clss
 
