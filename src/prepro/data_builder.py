@@ -149,7 +149,7 @@ class BertData():
         self.cls_vid = self.tokenizer.vocab['[CLS]']
         self.pad_vid = self.tokenizer.vocab['[PAD]']
 
-    def preprocess(self, src, tgt, oracle_ids, pad = False):
+    def preprocess(self, src, tgt, oracle_ids, pad = True):
 
         if (len(src) == 0):
             return None
