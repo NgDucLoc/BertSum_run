@@ -249,10 +249,11 @@ class Trainer(object):
                         mask = batch.mask
                         mask_cls = batch.mask_cls
                         len_src = batch.len_src
+                        labels_base = batch.labels_base
 
                         print(len_src)
 
-                        all_labels = all_labels + sum(labels.tolist(), [])
+                        all_labels = all_labels + sum(labels_base.tolist(), [])
                         gold = []
                         pred = []
 
@@ -279,7 +280,7 @@ class Trainer(object):
                         for i, idx in enumerate(selected_ids):
                             _pred_label =[]
                             # creat a label array {0,1}
-                            for j in range(len(labels[i])):
+                            for j in range(len(labels_base[i])):
                                 if j in selected_ids[i][0:3]:
                                     _pred_label.append(1)
                                 else:
