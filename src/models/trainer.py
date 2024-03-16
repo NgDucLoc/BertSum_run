@@ -282,7 +282,7 @@ class Trainer(object):
                                 else:
                                     _pred_label.append(0)
 
-
+                            all_pred_labels = all_pred_labels + _pred_label
                             _pred = []
                             if(len(batch.src_str[i])==0):
                                 continue
@@ -305,7 +305,7 @@ class Trainer(object):
 
                             pred.append(_pred)
                             gold.append(batch.tgt_str[i])
-                            all_pred_labels = all_pred_labels + _pred_label
+
 
                         for i in range(len(gold)):
                             save_gold.write(gold[i].strip()+'\n')
