@@ -23,7 +23,7 @@ class Batch(object):
             pre_labels = [x[1] for x in data]
             pre_segs = [x[2] for x in data]
             pre_clss = [x[3] for x in data]
-
+            pre_len_src = [x[4] for x in data]
             src = torch.tensor(self._pad(pre_src, 0))
 
             labels = torch.tensor(self._pad(pre_labels, 0))
@@ -34,12 +34,15 @@ class Batch(object):
             mask_cls = ~(clss == -1)
             clss[clss == -1] = 0
 
+            len_src = torch.tensor(pre_len_src)
+
             setattr(self, 'clss', clss.to(device))
             setattr(self, 'mask_cls', mask_cls.to(device))
             setattr(self, 'src', src.to(device))
             setattr(self, 'labels', labels.to(device))
             setattr(self, 'segs', segs.to(device))
             setattr(self, 'mask', mask.to(device))
+            setattr(self, 'len_src', len_src.to(device))
 
             if (is_test):
                 src_str = [x[-2] for x in data]
@@ -188,9 +191,9 @@ class DataIterator(object):
         tgt_txt = ex['tgt_txt']
 
         if(is_test):
-            return src,labels,segs, clss, src_txt, tgt_txt, len_src
+            return src,labels,segs, clss, len_src, src_txt, tgt_txt
         else:
-            return src,labels,segs, clss
+            return src,labels,segs, clss, len_src
 
     def batch_buffer(self, data, batch_size):
         minibatch, size_so_far = [], 0
