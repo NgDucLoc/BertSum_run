@@ -233,6 +233,9 @@ class Trainer(object):
             self.model.eval()
         stats = Statistics()
 
+        all_labels=[]
+        all_pre_labels=[]
+
         can_path = '%s_step%d.candidate'%(self.args.result_path,step)
         gold_path = '%s_step%d.gold' % (self.args.result_path, step)
         with open(can_path, 'w') as save_pred:
@@ -246,10 +249,9 @@ class Trainer(object):
                         mask = batch.mask
                         mask_cls = batch.mask_cls
 
-
+                        all_labels = all_labels + labels.to_list()
                         gold = []
                         pred = []
-                        pred_label = []
 
                         if (cal_lead):
                             selected_ids = [list(range(batch.clss.size(1)))] * batch.batch_size
@@ -272,13 +274,13 @@ class Trainer(object):
 
                         # selected_ids = np.sort(selected_ids,1)
                         for i, idx in enumerate(selected_ids):
-                            _pre_label =[]
+                            _pred_label =[]
                             # creat a label array {0,1}
-                            for j in range(len(labels[i])):
+                            for j in range(len(labels)):
                                 if j in selected_ids[i][0:3]:
-                                    _pre_label.append(1)
+                                    _pred_label.append(1)
                                 else:
-                                    _pre_label.append(0)
+                                    _pred_label.append(0)
 
 
                             _pred = []
@@ -303,7 +305,7 @@ class Trainer(object):
 
                             pred.append(_pred)
                             gold.append(batch.tgt_str[i])
-                            pred_label.append(_pre_label)
+                            all_pred_labels = all_pred_labels + _pred_label
 
                         for i in range(len(gold)):
                             save_gold.write(gold[i].strip()+'\n')
@@ -313,11 +315,7 @@ class Trainer(object):
         #     rouges = test_rouge(self.args.temp_dir, can_path, gold_path)
         #     logger.info('Rouges at step %d \n%s' % (step, rouge_results_to_str(rouges)))
         # self._report_step(0, step, valid_stats=stats)
-                labels = labels.tolist()
-                labels = sum(labels, [])
-
-                pred_label = sum(pred_label, [])
-                print(classification_report(labels, pred_label))
+        print(classification_report(all_labels, all_pred_labels))
         return stats
 
 
