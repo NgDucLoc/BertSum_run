@@ -182,7 +182,7 @@ class DataIterator(object):
             labels = ex['labels']
         else:
             labels = ex['src_sent_labels']
-
+        labels_base = ex['labels_base']
         len_src = ex['len_src']
 
         segs = ex['segs']
