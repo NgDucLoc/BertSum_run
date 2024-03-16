@@ -257,6 +257,7 @@ def _format_to_bert(params):
     jobs = json.load(open(json_file))
     datasets = []
     for d in jobs:
+        len_src= len(d['label'])
         source, tgt = d['src'], d['tgt']
         if (args.oracle_mode == 'greedy'):
             oracle_ids = greedy_selection(source, tgt, 3)
@@ -271,7 +272,7 @@ def _format_to_bert(params):
         if (b_data is None):
             continue
         indexed_tokens, labels, segments_ids, cls_ids, src_txt, tgt_txt = b_data
-        len_src= len(labels)
+
 
         b_data_dict = {"src": indexed_tokens, "labels": labels, "segs": segments_ids, 'clss': cls_ids,
                        'src_txt': src_txt, "tgt_txt": tgt_txt, "len_src": len_src}
