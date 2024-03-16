@@ -276,7 +276,7 @@ class Trainer(object):
                         for i, idx in enumerate(selected_ids):
                             _pred_label =[]
                             # creat a label array {0,1}
-                            for j in range(len(labels)):
+                            for j in range(len(labels[i])):
                                 if j in selected_ids[i][0:3]:
                                     _pred_label.append(1)
                                 else:
