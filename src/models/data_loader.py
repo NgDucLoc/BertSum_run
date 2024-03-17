@@ -98,6 +98,7 @@ def load_dataset(args, corpus_type, shuffle):
             random.shuffle(pts)
 
         for pt in pts:
+            print("loc dep zai 1: ")
             yield _lazy_dataset_loader(pt, corpus_type)
             print("loc dep zai 2: ")
     else:
