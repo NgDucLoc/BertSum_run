@@ -250,8 +250,8 @@ def train(args, device_id):
     torch.backends.cudnn.deterministic = True
 
     def train_iter_fct():
-        return data_loader.Dataloader(args, load_dataset(args, 'train', shuffle=True), args.batch_size, device,
-                                                 shuffle=True, is_test=False)
+        return data_loader.Dataloader(args, load_dataset(args, 'train', shuffle=False), args.batch_size, device,
+                                                 shuffle=False, is_test=False)
 
     model = Summarizer(args, device, load_pretrained_bert=True)
     if args.train_from != '':
@@ -270,6 +270,7 @@ def train(args, device_id):
 
     logger.info(model)
     trainer = build_trainer(args, device_id, model, optim)
+    print(123456)
     trainer.train(train_iter_fct, args.train_steps)
 
 
