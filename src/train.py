@@ -264,6 +264,7 @@ def train(args, device_id):
                 setattr(args, k, opt[k])
         model.load_cp(checkpoint)
         optim = model_builder.build_optim(args, model, checkpoint)
+        print(optim)
     else:
         optim = model_builder.build_optim(args, model, None)
 
