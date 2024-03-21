@@ -319,7 +319,7 @@ class Trainer(object):
         #     rouges = test_rouge(self.args.temp_dir, can_path, gold_path)
         #     logger.info('Rouges at step %d \n%s' % (step, rouge_results_to_str(rouges)))
         # self._report_step(0, step, valid_stats=stats)
-        print(classification_report(all_labels, all_pred_labels))
+        print(classification_report(all_labels, all_pred_labels, digits = 4))
         return stats
 
 
