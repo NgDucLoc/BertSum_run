@@ -275,7 +275,7 @@ def _format_to_bert(params):
 
 
         b_data_dict = {"src": indexed_tokens, "labels": labels, "segs": segments_ids, 'clss': cls_ids,
-                       'src_txt': src_txt, "tgt_txt": tgt_txt, "len_src": len_src, "labels_base": d['label']}
+                       'src_txt': src_txt, "tgt_txt": tgt_txt, "len_src": len_src, "labels_base": d['label'], "aswer_id": d['answer_id']}
         datasets.append(b_data_dict)
     print(len(datasets))
     logger.info('Saving to %s' % save_file)

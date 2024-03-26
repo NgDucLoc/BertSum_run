@@ -51,6 +51,8 @@ class Batch(object):
                 setattr(self, 'tgt_str', tgt_str)
                 labels_base = [x[-3] for x in data]
                 setattr(self, 'labels_base', labels_base)
+                answer_id = [x[-4] for x in data]
+                setattr(self, 'answer_id', answer_id)
 
     def __len__(self):
         return self.batch_size
@@ -187,7 +189,7 @@ class DataIterator(object):
             labels = ex['src_sent_labels']
         labels_base = ex['labels_base']
         len_src = ex['len_src']
-
+        answer_id = ex['answer_id']
         segs = ex['segs']
         if(not self.args.use_interval):
             segs=[0]*len(segs)
@@ -196,7 +198,7 @@ class DataIterator(object):
         tgt_txt = ex['tgt_txt']
 
         if(is_test):
-            return src,labels,segs, clss, len_src, labels_base, src_txt, tgt_txt
+            return src,labels,segs, clss, len_src, answer_id, labels_base, src_txt, tgt_txt
         else:
             return src,labels,segs, clss, len_src
 
