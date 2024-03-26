@@ -325,7 +325,7 @@ class Trainer(object):
         print(classification_report(all_labels, all_pred_labels, digits = 4))
         print(all_src_str)
         print(len(all_src_str))
-        prediction = pd.DataFrame({"src": all_src,"truth": all_pred_labels})
+        prediction = pd.DataFrame({"src": all_src_str,"truth": all_pred_labels})
         prediction.to_csv("truth.csv")
         return stats
 
