@@ -2,6 +2,7 @@ import os
 
 import numpy as np
 import torch
+import pandas as pd
 from tensorboardX import SummaryWriter
 
 import distributed
@@ -320,6 +321,8 @@ class Trainer(object):
         #     logger.info('Rouges at step %d \n%s' % (step, rouge_results_to_str(rouges)))
         # self._report_step(0, step, valid_stats=stats)
         print(classification_report(all_labels, all_pred_labels, digits = 4))
+        prediction = pd.DataFrame({"truth": all_pred_labels})
+        prediction.to_csv("truth.csv")
         return stats
 
 
