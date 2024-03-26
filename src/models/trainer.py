@@ -323,6 +323,8 @@ class Trainer(object):
         #     logger.info('Rouges at step %d \n%s' % (step, rouge_results_to_str(rouges)))
         # self._report_step(0, step, valid_stats=stats)
         print(classification_report(all_labels, all_pred_labels, digits = 4))
+        print(all_src)
+        print(len(all_src))
         prediction = pd.DataFrame({"src": all_src,"truth": all_pred_labels})
         prediction.to_csv("truth.csv")
         return stats
