@@ -236,7 +236,7 @@ class Trainer(object):
 
         all_labels=[]
         all_pred_labels=[]
-        all_src = []
+        all_src_str = []
 
         can_path = '%s_step%d.candidate'%(self.args.result_path,step)
         gold_path = '%s_step%d.gold' % (self.args.result_path, step)
@@ -252,11 +252,11 @@ class Trainer(object):
                         mask_cls = batch.mask_cls
                         len_src = batch.len_src
                         labels_base = batch.labels_base
-
+                        src_str = batch.src_str
                         print(len_src)
 
                         all_labels = all_labels + sum(labels_base, [])
-                        all_src = all_src + sum(src.tolist(), [])
+                        all_src_str = all_src_str + sum(src_str.tolist(), [])
                         gold = []
                         pred = []
 
@@ -323,8 +323,8 @@ class Trainer(object):
         #     logger.info('Rouges at step %d \n%s' % (step, rouge_results_to_str(rouges)))
         # self._report_step(0, step, valid_stats=stats)
         print(classification_report(all_labels, all_pred_labels, digits = 4))
-        print(all_src)
-        print(len(all_src))
+        print(all_src_str)
+        print(len(all_src_str))
         prediction = pd.DataFrame({"src": all_src,"truth": all_pred_labels})
         prediction.to_csv("truth.csv")
         return stats
