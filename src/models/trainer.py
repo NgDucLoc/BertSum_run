@@ -254,7 +254,7 @@ class Trainer(object):
                         labels_base = batch.labels_base
                         src_str = batch.src_str
                         print(len_src)
-                        print("answer_id": batch.answer_id)
+                        print("answer_id", batch.answer_id)
                         all_labels = all_labels + sum(labels_base, [])
                         all_src_str = all_src_str + sum(src_str, [])
                         gold = []
