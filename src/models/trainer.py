@@ -238,6 +238,10 @@ class Trainer(object):
         all_pred_labels=[]
         all_src_str = []
 
+
+        ans_id = []
+        pred_fl_id = []
+
         can_path = '%s_step%d.candidate'%(self.args.result_path,step)
         gold_path = '%s_step%d.gold' % (self.args.result_path, step)
         with open(can_path, 'w') as save_pred:
@@ -253,8 +257,8 @@ class Trainer(object):
                         len_src = batch.len_src
                         labels_base = batch.labels_base
                         src_str = batch.src_str
-                        print(len_src)
-                        print("answer_id", batch.answer_id)
+                        # print(len_src)
+                        # print("answer_id", batch.answer_id)
                         all_labels = all_labels + sum(labels_base, [])
                         all_src_str = all_src_str + sum(src_str, [])
                         gold = []
@@ -290,6 +294,9 @@ class Trainer(object):
                                     _pred_label.append(0)
 
                             all_pred_labels = all_pred_labels + _pred_label
+                            ans_id.append(batch.answer_id[i])
+                            pred_fl_id.append(_pred_label)
+
                             _pred = []
                             if(len(batch.src_str[i])==0):
                                 continue
@@ -325,8 +332,8 @@ class Trainer(object):
         print(classification_report(all_labels, all_pred_labels, digits = 4))
         print(all_src_str)
         print(len(all_src_str))
-        prediction = pd.DataFrame({"src": all_src_str,"truth": all_pred_labels})
-        prediction.to_csv("truth.csv")
+        prediction = pd.DataFrame({"id": ans_id,"truth": pred_fl_id})
+        prediction.to_csv("pred_bertsum.csv")
         return stats
 
 
