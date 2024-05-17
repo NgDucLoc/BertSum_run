@@ -196,10 +196,7 @@ class Trainer(object):
                 clss = batch.clss
                 mask = batch.mask
                 mask_cls = batch.mask_cls
-
                 sent_scores, mask = self.model(src, segs, clss, mask, mask_cls)
-
-
                 loss = self.loss(sent_scores, labels.float())
                 loss = (loss * mask.float()).sum()
                 batch_stats = Statistics(float(loss.cpu().data.numpy()), len(labels))
@@ -296,7 +293,7 @@ class Trainer(object):
                             all_pred_labels = all_pred_labels + _pred_label
                             ans_id.append(batch.answer_id[i])
                             pred_fl_id.append(_pred_label)
-
+                            
                             _pred = []
                             if(len(batch.src_str[i])==0):
                                 continue
